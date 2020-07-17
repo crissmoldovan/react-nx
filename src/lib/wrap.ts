@@ -22,6 +22,43 @@ const handler = {
       return children => wrap(cloneElement(target, target.props, children))
     }
 
+    if (prop === 'add' || prop === 'append' || prop === 'appendChildren') {
+      return childrenToAdd => {
+        let newChildren = childrenToAdd
+        let existingChildren = target.props && target.props.children
+        if (existingChildren) {
+          if (!Array.isArray(existingChildren)) {
+            existingChildren = [existingChildren]
+          }
+
+          if (Array.isArray(childrenToAdd)) {
+            newChildren = [...existingChildren, ...childrenToAdd]
+          } else {
+            newChildren = [...existingChildren, childrenToAdd]
+          }
+        }
+        return wrap(cloneElement(target, target.props, newChildren))
+      }
+    }
+
+    if (prop === 'className') {
+      return value => wrap(cloneElement(target, applyProp(target.props, 'className', value)))
+    }
+
+    if (prop === 'css' || prop === 'style' || prop === 'styles') {
+      return (value, override?) =>
+        wrap(
+          cloneElement(
+            target,
+            applyProp(
+              target.props,
+              'css',
+              override ? value : { ...(target.props && target.props.css ? target.props.css : {}), ...value }
+            )
+          )
+        )
+    }
+
     // @ts-ignore
     return Reflect.get(...arguments)
   }

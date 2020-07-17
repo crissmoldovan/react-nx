@@ -1,8 +1,8 @@
 import { jsx } from '@emotion/core'
 
-export const createElement = (type, props?) => jsx(type, props)
+export const createElement = (type, props?, children?) => (children ? jsx(type, props, children) : jsx(type, props))
 
-export const cloneElement = function(element, props, children?) {
+export const cloneElement = function(element, props?, children?) {
   // need to cover the case when no new props are added, just new children
   let _children = undefined
 
@@ -14,7 +14,8 @@ export const cloneElement = function(element, props, children?) {
   } else if (childrenLength > 1) {
     const childArray = Array(childrenLength)
     for (let i = 0; i < childrenLength; i++) {
-      childArray[i] = arguments[i + 2]
+      const child = arguments[i + 2]
+      childArray[i] = child
     }
     _children = childArray
   }
@@ -30,7 +31,8 @@ export const cloneElement = function(element, props, children?) {
     }
   )
 
-  const type = element.props.__EMOTION_TYPE_PLEASE_DO_NOT_USE__ || element.type
+  const type = (element && element.props && element.props.__EMOTION_TYPE_PLEASE_DO_NOT_USE__) || element.type
+
   return createElement(type, _props)
 }
 
