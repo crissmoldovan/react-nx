@@ -10,7 +10,7 @@ const generateMappingsFile = () => {
   properties.forEach(property => {
     const rawFunctionName = camelCaseProperty(property)
     const functionName = rawFunctionName[0].toLowerCase() + rawFunctionName.substr(1)
-    mapping[functionName] = property
+    mapping[functionName] = rawFunctionName
   })
 
   fs.writeFileSync(attributesMappingPath, JSON.stringify(mapping))
