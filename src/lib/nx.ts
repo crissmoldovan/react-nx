@@ -1,6 +1,13 @@
-import { createElement } from './element'
-import wrap from './wrap'
+import { wrapNode } from '../'
 
-export const nx = element => (props?, children?) => wrap(createElement(element, props, children))
+export const nx = node => {
+  if (node.__nx) return node.__nx.jsx(node.__nx.type, node.__nx.props)
+
+  console.log('node', node)
+  if (typeof node === 'function') {
+    return (props?) => wrapNode(node, props)
+  }
+  return null
+}
 
 export default nx
