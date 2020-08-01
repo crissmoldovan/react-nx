@@ -1,6 +1,6 @@
-import { jsx } from '@emotion/core'
+import { createElement as RCE } from 'react'
 
-export const createElement = (type, props?, children?) => (children ? jsx(type, props, children) : jsx(type, props))
+export const createElement = (type, props?, children?) => (children ? RCE(type, props, children) : RCE(type, props))
 
 export const cloneElement = function(element, props?, children?) {
   // need to cover the case when no new props are added, just new children
@@ -20,18 +20,15 @@ export const cloneElement = function(element, props?, children?) {
     _children = childArray
   }
 
-  const _props = Object.assign(
-    {},
-    {
-      key: element.key === 'null' || element.key === null ? undefined : element.key,
-      ref: element.ref,
-      ...element.props,
-      ...props,
-      ...(_children !== undefined ? { children: _children } : {})
-    }
-  )
+  const _props = {
+    key: element.key === 'null' || element.key === null ? undefined : element.key,
+    ref: element.ref,
+    ...element.props,
+    ...props,
+    ...(_children !== undefined ? { children: _children } : {})
+  }
 
-  const type = (element && element.props && element.props.__EMOTION_TYPE_PLEASE_DO_NOT_USE__) || element.type
+  const type = element.type
 
   return createElement(type, _props)
 }

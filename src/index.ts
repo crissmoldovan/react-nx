@@ -1,19 +1,22 @@
-import tags from './lib/tags'
+import tags from './tags'
 import { createElement } from 'react'
-import { mapping as styleMapping } from './lib/styles'
-import { mapping as propsMapping } from './lib/props'
+import { mapping as styleMapping } from './styles'
+import { mapping as propsMapping } from './props'
 
-export { default as nx } from './lib/nx'
+export { default as nx } from './nx'
 
-import wrap from './lib/wrap'
+import wrap from './wrap'
 
-export const element = (type, props) => ({
-  __nx: {
-    jsx: createElement,
+export const element = function(type, props = { ref: null, key: null }) {
+  return {
+    props: props || {},
     type,
-    props: props || {}
+    jsx: createElement,
+    $$typeof: Symbol.for('react.element'),
+    ref: props.ref || null,
+    key: props.key || null
   }
-})
+}
 
 export const elements = {}
 
