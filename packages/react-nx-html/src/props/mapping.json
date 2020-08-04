@@ -1,0 +1,26 @@
+{
+  "className": "props.className",
+  "onClick": "props.onClick",
+  "children": "props.children",
+  "add": {
+    "attr": "props.children",
+    "operation": "append"
+  },
+  "append": {
+    "attr": "props.children",
+    "operation": "append"
+  },
+  "appendChildren": {
+    "attr": "props.children",
+    "operation": "append"
+  },
+  "style": "props.style",
+  "addStyle": {
+    "attr": "props.style",
+    "operation": "appendObject"
+  },
+  "appendStyle": {
+    "attr": "props.style",
+    "operation": "appendObject"
+  }
+}

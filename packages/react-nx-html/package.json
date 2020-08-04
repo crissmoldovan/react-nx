@@ -1,0 +1,30 @@
+{
+  "name": "@react-nx/html",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "prepare": "install-peers",
+    "clean": "rm -rf ./dist",
+    "build": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "react-nx": "^1.0.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^3.7.1",
+    "install-peers-cli": "^2.2.0",
+    "typescript": "3.6.4"
+  },
+  "peerDependencies": {
+    "react": "^16.11.0"
+  }
+}
